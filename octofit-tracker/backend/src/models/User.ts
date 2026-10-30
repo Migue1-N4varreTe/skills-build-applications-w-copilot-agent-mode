@@ -1,10 +1,20 @@
-import { Schema, model } from 'mongoose';
+import { Schema, model } from "mongoose";
 
 const userSchema = new Schema({
-  name: String,
-  email: String,
-  team: { type: Schema.Types.ObjectId, ref: 'Team' },
-  fitnessGoal: String,
+  name: { type: String, required: true, trim: true },
+  email: {
+    type: String,
+    required: true,
+    trim: true,
+    lowercase: true,
+    unique: true,
+  },
+  team: { type: Schema.Types.ObjectId, ref: "Team" },
+  fitnessGoal: {
+    type: String,
+    required: true,
+    enum: ["endurance", "strength", "mobility"],
+  },
 });
 
-export const User = model('User', userSchema);
+export const User = model("User", userSchema);
